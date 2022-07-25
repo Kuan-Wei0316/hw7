@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Doraemon</title>
+    <style type="text/css">
+        @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+        img {
+            width: 300px;
+            height: 300px;
+        }
+
+		div, input {
+            font-family: Noto Sans TC, Perpetua, serif;
+			width: 300px;            
+        }
+		
+		div {
+            color: darkblue;
+            text-align: center;	
+			font-size: 24px;			
+        }
+
+		input {
+			font-size: 18px;
+			font-weight: bold;
+		}
+    </style>
+    <script>
+        // TODO
+        let playButton;
+        let image;
+        let message;
+        let audio;
+        let idx;
+        function start()
+        {
+            playButton=document.getElementById("play");
+            playButton.addEventListener("click",play,false);
+            image=document.getElementById("accessory");
+            message=document.getElementById("messages");
+            audio=document.getElementById("audio");
+        }
+        let tool=["任意門", "時光機", "竹蜻蜓", "時光布", "記憶麵包", "縮小燈", "翻譯蒟蒻", "如果電話亭", "穿透環", "更衣照相機"];
+        function play()
+        {
+            idx=Math.floor(1 + Math.random() * 10)
+            image.setAttribute("src",'blank.png')
+            audio.play();
+            message.innerHTML=''
+            audio.addEventListener("ended",changeImg,false)
+        }
+        function changeImg()
+        {
+            if(idx==10)
+            {
+                image.setAttribute("src",idx+'.png')
+            }
+            else
+            {
+                image.setAttribute("src",'0'+idx+'.png')
+            }
+            message.innerHTML='你抽到'+tool[idx-1]+'!'
+        }
+        window.addEventListener( "load", start, false );
+    </script>
+</head>
+
+<body>
+    <img id="accessory" src="00.png" alt="accessory">
+    <form action="#">
+        <input id="play" type="button" value="抽道具">
+    </form>
+    <div id="messages">請按下Button抽出道具</div>
+    <audio id="audio" src="doraemon.mp3" ></audio>
+</body>
+
+</html>
